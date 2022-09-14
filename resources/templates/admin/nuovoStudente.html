@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/mystyle.css">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Aboreto">
+<title>Nuovo studente</title>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+	crossorigin="anonymous"></script>
+</head>
+<body>
+	<section class="vh-100 gradient-custom">
+
+		<form class="container py-3 h-100" th:action="@{/admin/nuovoStudente}"
+			method="POST" th:object="${credenziali}">
+
+			<div
+				class="row d-flex justify-content-center align-items-center h-75">
+				<div class="col-12 col-md-8 col-lg-6 col-xl-5">
+					<div class="card text-white"
+						style="border-radius: 1rem; background: rgb(00, 00, 66);">
+						<div class="card-body p-5 text-center">
+
+							<div class="mb-md-4 mt-md-3 pb-4">
+
+								<p class="p1 fw-bold mb-2 text-uppercase">Nuovo studente</p>
+								<p class="text-white-50 mb-5">Inserisci i dati del nuovo
+									studente!</p>
+
+								<div>
+
+									<div class="mb-3">
+										<p align="left" class="mb-0">Nome</p>
+										<input type="text" class="form-control"
+											th:field="*{utente.nome}" required /> <span
+											th:if="${#fields.hasErrors('nome')}"
+											class="small text-danger" th:text="#{utente.nome.size}">Errore-Nome</span>
+									</div>
+
+									<div class="mb-3">
+										<p align="left" class="mb-0">Cognome</p>
+										<input type="text" class="form-control"
+											th:field="*{utente.cognome}" required /> <span
+											th:if="${#fields.hasErrors('cognome')}"
+											class="small text-danger" th:text="#{utente.cognome.size}">Errore-Cognome</span>
+									</div>
+
+									<div class="mb-3">
+										<p align="left" class="mb-0">Username</p>
+										<input type="text" class="form-control" th:field="*{username}"
+											required />
+										<div th:if="${#fields.hasErrors('username')}">
+											<span
+												th:if="${credenziali.username.length < 4 || credenziali.username.length > 20}"
+												class="small text-danger"
+												th:text="#{credenziali.username.size}">Errore-Size-Username</span>
+											<span
+												th:unless="${credenziali.username.length < 4 || credenziali.username.length > 20}"
+												class="small text-danger"
+												th:text="#{credenziali.username.exists}">Errore-Exists-Username</span>
+										</div>
+									</div>
+
+									<div class="mb-3">
+										<p align="left" class="mb-0">Password</p>
+										<input type="password" class="form-control"
+											th:field="*{password}" required /> <span
+											th:if="${#fields.hasErrors('password')}"
+											class="small text-danger"
+											th:text="#{credenziali.password.size}">Errore-Cognome</span>
+									</div>
+
+								</div>
+								<button type="submit" class="btn btn-primary">Conferma</button>
+								<a th:href="@{'/admin' + '/' + 'home'}"
+									class="btn btn-secondary">Annulla</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</form>
+	</section>
+	<div class="footer" th:insert="fragments/footer :: footer"></div>
+</body>
+</html>

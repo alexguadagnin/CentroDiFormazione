@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/mystyle.css">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Aboreto">
+<title th:text="${certificazione.nome}"></title>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+	crossorigin="anonymous"></script>
+</head>
+<body class="d-flex flex-column vsc-initialized">
+
+	<header>
+		<div class="intestazione"
+			th:insert="fragments/intestazione :: intestazione"></div>
+	</header>
+	<main class="flex-shrink-1 vh-100 gradient-custom text-center">
+		<div class="container mt-5">
+			<div>
+				<p class="p1" th:text="${certificazione.nome}">nome</p>
+
+				<p class="p2"
+					th:text="'&quot;' + ${certificazione.descrizione} + '&quot;'">descrizione</p>
+			</div>
+
+			<div class="alert alert-danger d-flex align-items-center"
+				role="alert" th:if="${errorMessage}" th:text="${errorMessage}">errore</div>
+			<div>
+				<div>
+
+					<p>
+						<button class="btn btn-outline-light text-light" type="button"
+							data-bs-toggle="collapse" data-bs-target="#collapseExample"
+							aria-expanded="false" aria-controls="collapseExample">Prenotati
+							subito!</button>
+					</p>
+					<div class="collapse" id="collapseExample">
+
+						<div class="card mt-1" th:each="esame : ${esami}">
+							<div class="card-body">
+								<h5 class="card-title" th:text="${esame.data}">Data esame</h5>
+								<p class="card-text" th:text="'Ora: ' + ${esame?.ora}">Orario</p>
+								<p class="card-text" th:text="'Aula: ' + ${esame?.aula}">Aula</p>
+								<a th:href="@{'/confermaPrenotazione' + '/' + ${esame.id}}"
+									class="card-link">Prenota</a>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+	<div class="footer" th:insert="fragments/footer :: footer"></div>
+
+</body>
+</html>

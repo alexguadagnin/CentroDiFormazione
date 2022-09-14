@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<body>
+	<div th:fragment="intestazione">
+		<nav class="navbar navbar-light bg-light">
+			<!-- Navbar content -->
+			<div class="container-fluid">
+				<a class="navbar-brand" th:href="@{/default}"> <img
+					src="/images/logo.png" alt="logo" width="40" height="40"
+					class="d-inline-block align-text-top">
+				</a>
+				<ul class="nav justify-content-end">
+
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" href="#">Contatti</a></li>
+
+					<li th:if="${#authorization.expression('!isAuthenticated()')}"
+						class="nav-item"><a class="nav-link active"
+						aria-current="page" th:href="@{/login}">Login</a></li>
+
+					<li th:unless="${#authorization.expression('!isAuthenticated()')}"
+						class="nav-item"><a class="nav-link active"
+						aria-current="page" th:href="@{/logout}">Logout</a></li>
+
+				</ul>
+			</div>
+		</nav>
+	</div>
+</body>
+</html>
